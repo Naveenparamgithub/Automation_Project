@@ -2,7 +2,7 @@
 
 # Variables
 name="Naveen"
-s3_bucket="your_bucket"
+s3_bucket="upgrad_naveen"
 
 # update the ubuntu repositories
 apt update -y
