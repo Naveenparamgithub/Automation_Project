@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variables
-name="tayyab"
+name="Naveen"
 s3_bucket="your_bucket"
 
 # update the ubuntu repositories
@@ -38,4 +38,17 @@ tar -cf /tmp/${name}-httpd-logs-${timestamp}.tar *.log
 if [[ -f /tmp/${name}-httpd-logs-${timestamp}.tar ]]; then
 	#statements
 	aws s3 cp /tmp/${name}-httpd-logs-${timestamp}.tar s3://${s3_bucket}/${name}-httpd-logs-${timestamp}.tar
+fi
+Rootfile="/var/www/html"
+# Check if inventory file exists
+if [[ ! -f ${rootfile}/inventory.html ]]; then
+	#statements
+	echo -e 'Log Type\t-\tTime Created\t-\tType\t-\tSize' > ${rootfile}/inventory.html
+fi
+
+# Inserting Logs into the file
+if [[ -f ${rootfile}/inventory.html ]]; then
+	#statements
+    size=$(du -h /tmp/${name}-httpd-logs-${timestamp}.tar | awk '{print $1}')
+	echo -e "httpd-logs\t-\t${timestamp}\t-\ttar\t-\t${size}" >> ${rootfile}/inventory.html
 fi
